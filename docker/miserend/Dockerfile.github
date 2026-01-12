@@ -1,4 +1,4 @@
-FROM ghcr.io/kris/miserend.hu/php-base:8.2
+FROM ghcr.io/krisek/miserend.hu/php-base:8.2
 
 WORKDIR /miserend
 
