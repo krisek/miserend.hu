@@ -4,7 +4,7 @@ WORKDIR /miserend
 
 COPY docker/miserend/ docker/miserend/
 COPY webapp/ webapp/
-COPY calendar/dist/mcal/browser calendar/dist/mcal/browser
+COPY calendar/dist/mcal calendar/dist/mcal
 
 RUN python3 docker/miserend/calendar_deploy.py \
     calendar/dist/mcal/browser webapp \
