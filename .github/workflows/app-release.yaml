@@ -31,7 +31,6 @@ jobs:
         run: |
           cd webapp
           npm ci
-          find .
 
       - name: Build calendar assets
         run: |
