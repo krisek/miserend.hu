@@ -3,7 +3,7 @@
     "description": "Miserend.hu web application",
     "require": {
         "twig/twig": "3.6.*",
-        "phpunit/phpunit": "4.8@stable",
+        "phpunit/phpunit": "^10.5",
         "tinymce/tinymce": ">= 4",
 		"phpmailer/phpmailer": "^6.8.0",
 		"illuminate/database": "10.*",
