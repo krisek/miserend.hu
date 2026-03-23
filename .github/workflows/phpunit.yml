@@ -6,6 +6,7 @@ on:
     branches:
       - master
       - production
+      - develop
 
 jobs:
   phpunit:
