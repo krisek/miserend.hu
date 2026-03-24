@@ -12,4 +12,4 @@ docker compose -f docker/compose.yml -f docker/compose.dev.yml -f docker/compose
 docker compose -f docker/compose.yml -f docker/compose.dev.yml -f docker/compose.coverage.yml run --rm --entrypoint sh -u root miserend -lc \
   'mkdir -p tests/coverage/html \
     && chown -R www-data:www-data tests \
-    && su -s /bin/sh www-data -c "if [ ! -f vendor/bin/phpunit ]; then composer install --no-interaction --no-progress; fi; php vendor/bin/phpunit -c tests/phpunit.xml --coverage-html tests/coverage/html $*"' -- "$@"
+    && su -s /bin/sh www-data -c "if [ ! -f vendor/bin/phpunit ]; then composer install --no-interaction --no-progress; fi; php vendor/bin/phpunit -c tests/phpunit.xml --coverage-html tests/coverage/html --log-junit tests/junit.xml --coverage-cobertura tests/coverage/cobertura.xml"'

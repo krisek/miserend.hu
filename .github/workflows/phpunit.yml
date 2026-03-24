@@ -41,3 +41,8 @@ jobs:
         with:
           report_paths: webapp/tests/junit.xml
           fail_on_failure: false
+          detailed_summary: true
+          include_passed: false
+          annotate_only: false
+          check_name: PHPUnit Test Results
+          job_name: PHPUnit
