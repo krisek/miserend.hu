@@ -57,7 +57,7 @@ services:
 
   miserend:
     container_name: miserend
-    image: ghcr.io/szentjozsefhackathon/miserend.hu:v2026.3.8
+    image: ghcr.io/szentjozsefhackathon/miserend.hu:v2026.3.24
     volumes: 
        - tmp:/miserend/webapp/fajlok/tmp
     ports:
