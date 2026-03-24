@@ -43,6 +43,6 @@ jobs:
           fail_on_failure: false
           detailed_summary: true
           include_passed: false
-          annotate_only: false
+          annotate_only: true
           check_name: PHPUnit Test Results
           job_name: PHPUnit
