@@ -12,8 +12,7 @@ RUN if ! php -m | grep -qi '^pcov$'; then \
       docker-php-ext-enable pcov || true; \
     fi
     
-RUN --mount=type=cache,target=/root/.composer \
-    composer install \
+RUN composer install \
       --no-interaction \
       --no-progress \
       --optimize-autoloader
