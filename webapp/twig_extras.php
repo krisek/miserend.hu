@@ -21,6 +21,7 @@
 
 function twig_hungarian_date_format($date, $format = null) {
     global $_honapok;
+    if($_honapok === null) include_once('load.php'); // Teszteknél közvetlenül hívjuk meg, és akkor kell ez.
 
     // Ha string, konvertáld timestamp-re
     if (is_string($date)) {
