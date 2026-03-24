@@ -16,6 +16,9 @@ webapp/tests/.phpunit.cache/
 webapp/tests/.phpunit.result.cache
 webapp/tests/coverage/
 
+# Exclude user-uploaded photos (WSL2 permission issues)
+webapp/kepek/templomok/
+
 # allow Angular build output
 !calendar/dist
 !calendar/dist/**
