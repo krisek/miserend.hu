@@ -101,6 +101,13 @@ class SimpleFunctionsTest extends TestCase {
             // early in the week: pick a day inside this week (e.g. Monday) so it's not today/yesterday/tomorrow
             $candidate = strtotime('next saturday', $lastSunday);
         }
+
+        //Ez sajnos kell mert a twig_extras keresi a $_honapok, de nem kapja meg, mert a load.php nélkül került meghívásra innen.
+        global $_honapok;
+        $monthNumber = (int)date('n', $candidate);
+        if (!isset($_honapok[$monthNumber][0]) || $_honapok[$monthNumber][0] === '') {
+            $_honapok[$monthNumber] = ['mon', 'month'];
+        }
                 
         $result = twig_hungarian_date_format($candidate, '');
 
@@ -117,6 +124,13 @@ class SimpleFunctionsTest extends TestCase {
         } else {
             // early in the week: pick a day inside this week (e.g. Monday) so it's not today/yesterday/tomorrow
             $candidate = strtotime('next saturday', $lastSunday);
+        }
+
+        //Ez sajnos kell mert a twig_extras keresi a $_honapok, de nem kapja meg, mert a load.php nélkül került meghívásra innen.
+        global $_honapok;
+        $monthNumber = (int)date('n', $candidate);
+        if (!isset($_honapok[$monthNumber][0]) || $_honapok[$monthNumber][0] === '') {
+            $_honapok[$monthNumber] = ['mon', 'month'];
         }
 
         $result = twig_hungarian_date_format($candidate, 'H:i');
