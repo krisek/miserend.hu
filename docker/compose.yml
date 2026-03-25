@@ -54,6 +54,7 @@ services:
     volumes:
       - tmp:/data
     command: sh -c "chown -R 33:33 /data"
+    restart: "no"
 
   miserend:
     container_name: miserend
@@ -63,12 +64,14 @@ services:
     ports:
       - 8000:8000
     user: "www-data"
+    restart: "always"
     depends_on:
       - mysql
       - tmp-init
-      - elasticsearch
+      - elasticsearch    
+    environment: 
+      - MISEREND_WEBAPP_ENVIRONMENT=production
 
-    environment: []
     networks:
       inner:
         aliases:
