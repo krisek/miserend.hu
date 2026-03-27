@@ -145,9 +145,6 @@ class SearchResultsMasses extends Html {
             
         }
 
-        
-        $templomurlap = "<img src=/img/space.gif width=5 height=6><br><a href=\"/\" class=link><img src=/img/search.gif width=16 height=16 border=0 align=absmiddle hspace=2><b>Vissza a főoldali keresőhöz</b></a><br><img src=/img/space.gif width=5 height=6>";
-
 
         $min = isset($_REQUEST['min']) ? $_REQUEST['min'] : 0;       
 		$leptet = isset($_REQUEST['leptet']) ? $_REQUEST['leptet'] : 25;	
@@ -181,8 +178,7 @@ class SearchResultsMasses extends Html {
         $this->alert = (new \ExternalApi\NapilelkibatyuApi())->LiturgicalAlert(isset($mikordatum) ? $mikordatum : false);
 
         $this->setTitle("Szentmise kereső");
-        
-        $this->templomurlap = $templomurlap;
+                
         $this->template = 'search/resultsmasses.twig';
         
         $this->results = $results;                

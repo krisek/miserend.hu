@@ -313,6 +313,15 @@ $(document).ready(function() {
 	}
 
 	function OpenScrollWindow(url, x, y) {
-      var options = "toolbar=no,menubar=no,scrollbars=yes,resizable=yes,width=" + x + ",height=" + y;
-      msgWindow=window.open(url,"", options);
+	     var options = "toolbar=no,menubar=no,scrollbars=yes,resizable=yes,width=" + x + ",height=" + y;
+	     msgWindow=window.open(url,"", options);
+	}
+
+	function goBackWithoutQ() {
+	  var params = new URLSearchParams(window.location.search);
+	  params.delete('q');
+	  var newUrl = '/' + (params.toString() ? '?' + params.toString() : '');
+    console.log(newUrl);
+	  window.location.href = newUrl;
+	  return false;
 	}
