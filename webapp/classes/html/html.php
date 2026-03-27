@@ -169,11 +169,17 @@ class Html {
 
     function getGitHash() {
         //GIT version        ;
-        // exec('git rev-parse --verify HEAD 2> /dev/null', $v);
-
-        $v = trim(file_get_contents('../git_hash')); // See: (.)git/hooks/post-checkout
+        // exec('git rev-parse --verify --short HEAD 2> /dev/null', $v);
+        $gitHashFile = 'fajlok/git_hash';        
+        // Ellenőrizni, hogy a fájl létezik-e
+        if (!file_exists($gitHashFile)) {
+            return false;
+        }   
+        $v = file_get_contents($gitHashFile); // See: (.)git/hooks/post-checkout        
+        // Csak az alfanumerikus karaktereket tartjuk meg a fájl tartalmából
+        $v = preg_replace('/[^a-zA-Z0-9]/', '', $v);        
         //Validate short of git_hash
-        if( preg_match('/^[a-zA-Z0-9]{7,8}$/i',$v,$match) ) { 
+        if( preg_match('/^[a-zA-Z0-9]{7,8}$/i',$v,$match) ) {
             return $v;
         }
         return false;
