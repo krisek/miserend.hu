@@ -489,7 +489,8 @@ class User {
     }
 
     static function logout() {
-        \Token::delete();
+        addMessage('Sikeresen kijelentkeztél.', 'success');
+        \Token::delete();        
     } 
 	
 	static function deleteNonActivatedUsers() {
