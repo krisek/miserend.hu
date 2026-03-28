@@ -170,13 +170,15 @@ class SearchResultsMasses extends Html {
                 $result->mass = \Eloquent\CalMass::find($result->mass_id)->toArray();
                 if($result->mass['rrule'])
                     $rrule = new \SimpleRRule($result->mass['rrule']);
-                    $result->mass['rrule']['readable'] = $rrule->toText();
+                    if(isset($rrule)) {
+                        $result->mass['rrule']['readable'] = $rrule->toText();
+                    }
                 if(isset($result->mass['periodId'])) {
                     $result->period = \Eloquent\CalPeriod::find($result->mass['periodId'])->toArray();                    
                 }
             }
         }            
-           
+
         //Data for pagination
 		$params = [];
 		foreach( ['varos','tavolsag','hely','kulcsszo','tnyelv','espker','ehm','types','rites',
