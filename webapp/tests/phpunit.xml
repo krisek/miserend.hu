@@ -13,12 +13,16 @@
         <testsuite name="api">
             <directory>Api</directory>
         </testsuite>
+        <testsuite name="request">
+            <file>RequestTest.php</file>            
+        </testsuite>
     </testsuites>
     <source>
         <include>
             <file>../functions.php</file>
             <file>../twig_extras.php</file>
             <directory>../classes/api</directory>
+            <directory>../classes</directory>
         </include>
     </source>
     <coverage>
