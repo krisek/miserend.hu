@@ -27,7 +27,7 @@ class SearchResultsChurches extends Html {
         }
     
         // Diocese filter		
-        $ehm = isset($_REQUEST['ehm']) ? $_REQUEST['ehm'] : 0;
+        $ehm = \Request::IntegerwDefault('ehm', 0);
         if ($ehm > 0) {
             $ehmnev = DB::table('egyhazmegye')->where('id',$ehm)->pluck('nev')[0];
             $search->addMust(["wildcard" => ['egyhazmegye.keyword' => $ehmnev ]]); 
@@ -35,9 +35,10 @@ class SearchResultsChurches extends Html {
         }
 
         // nyelvek filter
-        if(isset($_REQUEST['lang']) AND is_array($_REQUEST['lang'])) {
-            $langsShould = isset($_REQUEST['lang']['should']) ? array_filter(array_map('trim', explode(',', $_REQUEST['lang']['should']))) : [];
-            $langsMustNot = isset($_REQUEST['lang']['must_not']) ? array_filter(array_map('trim', explode(',', $_REQUEST['lang']['must_not']))) : [];
+        $lang = \Request::Array('lang');
+        if (!empty($lang)) {
+            $langsShould = isset($lang['should']) ? array_filter(array_map('trim', explode(',', $lang['should']))) : [];
+            $langsMustNot = isset($lang['must_not']) ? array_filter(array_map('trim', explode(',', $lang['must_not']))) : [];
 
             if (!empty($langsShould)) {
                 $search->addMust([ 'terms' => ['nyelvek' => $langsShould] ]);

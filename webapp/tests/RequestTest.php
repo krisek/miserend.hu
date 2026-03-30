@@ -425,4 +425,136 @@ class RequestTest extends TestCase {
         $this->expectException(Exception::class);
         \Request::getRequired('test');
     }
+
+    // IntegerArray() tests
+    public function testIntegerArray() {
+        $_REQUEST['test'] = [1, 2, 3, 4, 5];
+        $result = \Request::IntegerArray('test');
+        $this->assertEquals([1, 2, 3, 4, 5], $result);
+    }
+
+    public function testIntegerArrayWithStringNumbers() {
+        $_REQUEST['test'] = ['1', '2', '3'];
+        $result = \Request::IntegerArray('test');
+        $this->assertEquals(['1', '2', '3'], $result);
+    }
+
+    public function testIntegerArrayInvalid() {
+        $_REQUEST['test'] = [1, 2, 'invalid', 4];
+        $this->expectException(Exception::class);
+        \Request::IntegerArray('test');
+    }
+
+    public function testIntegerArrayNotSet() {
+        unset($_REQUEST['test']);
+        $this->assertFalse(\Request::IntegerArray('test'));
+    }
+
+    public function testIntegerArrayEmpty() {
+        $_REQUEST['test'] = '';
+        $this->assertFalse(\Request::IntegerArray('test'));
+    }
+
+    public function testIntegerArrayNotAnArray() {
+        $_REQUEST['test'] = 'not an array';
+        $this->expectException(Exception::class);
+        \Request::IntegerArray('test');
+    }
+
+    // IntegerArrayRequired() tests
+    public function testIntegerArrayRequired() {
+        $_REQUEST['test'] = [10, 20, 30];
+        $result = \Request::IntegerArrayRequired('test');
+        $this->assertEquals([10, 20, 30], $result);
+    }
+
+    public function testIntegerArrayRequiredInvalid() {
+        $_REQUEST['test'] = [1, 2, 'invalid'];
+        $this->expectException(Exception::class);
+        \Request::IntegerArrayRequired('test');
+    }
+
+    public function testIntegerArrayRequiredNotSet() {
+        unset($_REQUEST['test']);
+        $this->expectException(Exception::class);
+        \Request::IntegerArrayRequired('test');
+    }
+
+    public function testIntegerArrayRequiredEmpty() {
+        $_REQUEST['test'] = '';
+        $this->expectException(Exception::class);
+        \Request::IntegerArrayRequired('test');
+    }
+
+    public function testIntegerArrayRequiredNotAnArray() {
+        $_REQUEST['test'] = 'not an array';
+        $this->expectException(Exception::class);
+        \Request::IntegerArrayRequired('test');
+    }
+
+    // StringArray() tests
+    public function testStringArray() {
+        $_REQUEST['test'] = ['hello', 'world', 'test'];
+        $result = \Request::StringArray('test');
+        $this->assertEquals(['hello', 'world', 'test'], $result);
+    }
+
+    public function testStringArrayWithNumbers() {
+        $_REQUEST['test'] = ['123', 'abc', 'test'];
+        $result = \Request::StringArray('test');
+        $this->assertEquals(['123', 'abc', 'test'], $result);
+    }
+
+    public function testStringArrayInvalid() {
+        $_REQUEST['test'] = ['hello', 123, 'world'];
+        $this->expectException(Exception::class);
+        \Request::StringArray('test');
+    }
+
+    public function testStringArrayNotSet() {
+        unset($_REQUEST['test']);
+        $this->assertFalse(\Request::StringArray('test'));
+    }
+
+    public function testStringArrayEmpty() {
+        $_REQUEST['test'] = '';
+        $this->assertFalse(\Request::StringArray('test'));
+    }
+
+    public function testStringArrayNotAnArray() {
+        $_REQUEST['test'] = 'not an array';
+        $this->expectException(Exception::class);
+        \Request::StringArray('test');
+    }
+
+    // StringArrayRequired() tests
+    public function testStringArrayRequired() {
+        $_REQUEST['test'] = ['required', 'array', 'test'];
+        $result = \Request::StringArrayRequired('test');
+        $this->assertEquals(['required', 'array', 'test'], $result);
+    }
+
+    public function testStringArrayRequiredInvalid() {
+        $_REQUEST['test'] = ['hello', 456, 'world'];
+        $this->expectException(Exception::class);
+        \Request::StringArrayRequired('test');
+    }
+
+    public function testStringArrayRequiredNotSet() {
+        unset($_REQUEST['test']);
+        $this->expectException(Exception::class);
+        \Request::StringArrayRequired('test');
+    }
+
+    public function testStringArrayRequiredEmpty() {
+        $_REQUEST['test'] = '';
+        $this->expectException(Exception::class);
+        \Request::StringArrayRequired('test');
+    }
+
+    public function testStringArrayRequiredNotAnArray() {
+        $_REQUEST['test'] = 'not an array';
+        $this->expectException(Exception::class);
+        \Request::StringArrayRequired('test');
+    }
 }

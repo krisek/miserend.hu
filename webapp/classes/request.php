@@ -86,6 +86,80 @@ class Request {
         return $value;
     }
 
+    static function IntegerArray($name) {
+        $value = self::get($name);
+        if (!$value) return false;
+        
+        if (!is_array($value)) {
+            throw new Exception("'$name' is not an Array.");
+        }
+        
+        foreach ($value as $item) {
+            if (!is_numeric($item)) {
+                throw new Exception("Array '$name' contains non-integer values.");
+            }
+        }
+        
+        return $value;
+    }
+
+    static function IntegerArrayRequired($name) {
+        $value = self::get($name);
+        
+        if (!$value) {
+            throw new Exception("Required '$name' is missing.");
+        }
+        
+        if (!is_array($value)) {
+            throw new Exception("Required '$name' is not an Array.");
+        }
+        
+        foreach ($value as $item) {
+            if (!is_numeric($item)) {
+                throw new Exception("Required Array '$name' contains non-integer values.");
+            }
+        }
+        
+        return $value;
+    }
+
+    static function StringArray($name) {
+        $value = self::get($name);
+        if (!$value) return false;
+        
+        if (!is_array($value)) {
+            throw new Exception("'$name' is not an Array.");
+        }
+        
+        foreach ($value as $item) {
+            if (!is_string($item)) {
+                throw new Exception("Array '$name' contains non-string values.");
+            }
+        }
+        
+        return $value;
+    }
+
+    static function StringArrayRequired($name) {
+        $value = self::get($name);
+        
+        if (!$value) {
+            throw new Exception("Required '$name' is missing.");
+        }
+        
+        if (!is_array($value)) {
+            throw new Exception("Required '$name' is not an Array.");
+        }
+        
+        foreach ($value as $item) {
+            if (!is_string($item)) {
+                throw new Exception("Required Array '$name' contains non-string values.");
+            }
+        }
+        
+        return $value;
+    }
+
     static function validateDateFormat($value) {
         // Strict YYYY-mm-dd format validation
         if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $value)) {
