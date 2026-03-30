@@ -302,7 +302,4 @@ class Api {
         return $result;
     }
 
-    public function getAlternativeUrlPatterns() {        
-        return isset($this->extraUri) ? $this->extraUri : [""];
-    }   
 }
