@@ -553,8 +553,121 @@ class RequestTest extends TestCase {
     }
 
     public function testStringArrayRequiredNotAnArray() {
+         $_REQUEST['test'] = 'not an array';
+         $this->expectException(Exception::class);
+         \Request::StringArrayRequired('test');
+     }
+
+    // Boolean() tests
+    public function testBoolean() {
+        $_REQUEST['test'] = true;
+        $this->assertTrue(\Request::Boolean('test'));
+    }
+
+    public function testBooleanString1() {
+        $_REQUEST['test'] = '1';
+        $this->assertTrue(\Request::Boolean('test'));
+    }
+
+    public function testBooleanString0() {
+        $_REQUEST['test'] = '0';
+        $this->assertFalse(\Request::Boolean('test'));
+    }
+
+    public function testBooleanInt1() {
+        $_REQUEST['test'] = 1;
+        $this->assertTrue(\Request::Boolean('test'));
+    }
+
+    public function testBooleanInt0() {
+        $_REQUEST['test'] = 0;
+        $this->assertFalse(\Request::Boolean('test'));
+    }
+
+    public function testBooleanFalse() {
+        $_REQUEST['test'] = false;
+        $this->assertFalse(\Request::Boolean('test'));
+    }
+
+    public function testBooleanNotSet() {
+        unset($_REQUEST['test']);
+        $this->assertFalse(\Request::Boolean('test'));
+    }
+
+    public function testBooleanEmpty() {
+        $_REQUEST['test'] = '';
+        $this->assertFalse(\Request::Boolean('test'));
+    }
+
+    public function testBooleanInvalid() {
+        $_REQUEST['test'] = 'invalid';
+        $this->expectException(Exception::class);
+        \Request::Boolean('test');
+    }
+
+    // ArrayArray() tests
+    public function testArrayArray() {
+        $_REQUEST['test'] = [[1, 2], [3, 4]];
+        $result = \Request::ArrayArray('test');
+        $this->assertEquals([[1, 2], [3, 4]], $result);
+    }
+
+    public function testArrayArrayEmpty() {
+        $_REQUEST['test'] = [];
+        $result = \Request::ArrayArray('test');
+        $this->assertEquals([], $result);
+    }
+
+    public function testArrayArrayNotSet() {
+        unset($_REQUEST['test']);
+        $this->assertFalse(\Request::ArrayArray('test'));
+    }
+
+    public function testArrayArrayFalse() {
+        $_REQUEST['test'] = false;
+        $this->assertFalse(\Request::ArrayArray('test'));
+    }
+
+    public function testArrayArrayNotAnArray() {
         $_REQUEST['test'] = 'not an array';
         $this->expectException(Exception::class);
-        \Request::StringArrayRequired('test');
+        \Request::ArrayArray('test');
+    }
+
+    public function testArrayArrayItemIsNotAnArray() {
+        $_REQUEST['test'] = [[1, 2], 'not an array'];
+        $this->expectException(Exception::class);
+        \Request::ArrayArray('test');
+    }
+
+    // ArrayArraywDefault() tests
+    public function testArrayArrayWithDefault() {
+        $_REQUEST['test'] = [[1, 2], [3, 4]];
+        $result = \Request::ArrayArraywDefault('test', [['default']]);
+        $this->assertEquals([[1, 2], [3, 4]], $result);
+    }
+
+    public function testArrayArrayWithDefaultUseDefault() {
+        unset($_REQUEST['test']);
+        $result = \Request::ArrayArraywDefault('test', [['default1'], ['default2']]);
+        $this->assertEquals([['default1'], ['default2']], $result);
+    }
+
+    public function testArrayArrayWithDefaultNotAnArray() {
+        $_REQUEST['test'] = 'not an array';
+        $this->expectException(Exception::class);
+        \Request::ArrayArraywDefault('test', ['default']);
+    }
+
+    public function testArrayArrayWithDefaultNoDefault() {
+        unset($_REQUEST['test']);
+        $result = \Request::ArrayArraywDefault('test');
+        $this->assertEquals([], $result);
+    }
+
+    public function testArrayArrayWithDefaultItemIsNotAnArray() {
+        $_REQUEST['test'] = [[1, 2], 'not an array'];
+        $this->expectException(Exception::class);
+        \Request::ArrayArraywDefault('test', [['default']]);
     }
 }

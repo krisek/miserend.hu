@@ -116,6 +116,7 @@ class Request {
         
         foreach ($value as $item) {
             if (!is_numeric($item)) {
+                printr($item);
                 throw new Exception("Required Array '$name' contains non-integer values.");
             }
         }
@@ -141,26 +142,70 @@ class Request {
     }
 
     static function StringArrayRequired($name) {
+         $value = self::get($name);
+         
+         if (!$value) {
+             throw new Exception("Required '$name' is missing.");
+         }
+         
+         if (!is_array($value)) {
+             throw new Exception("Required '$name' is not an Array.");
+         }
+         
+         foreach ($value as $item) {
+             if (!is_string($item)) {
+                 throw new Exception("Required Array '$name' contains non-string values.");
+             }
+         }
+         
+         return $value;
+     }
+
+    static function ArrayArray($name) {
         $value = self::get($name);
-        
-        if (!$value) {
-            throw new Exception("Required '$name' is missing.");
-        }
+        if ($value === false) return false;
         
         if (!is_array($value)) {
-            throw new Exception("Required '$name' is not an Array.");
+            throw new Exception("'$name' is not an Array.");
         }
-        
+
         foreach ($value as $item) {
-            if (!is_string($item)) {
-                throw new Exception("Required Array '$name' contains non-string values.");
+            if (!is_array($item)) {
+                throw new Exception("Array '$name' contains non-array values.");
             }
         }
         
         return $value;
     }
 
-    static function validateDateFormat($value) {
+    static function ArrayArraywDefault($name, $default = []) {
+        $value = self::getwDefault($name, $default);
+        
+        if (!is_array($value)) {
+            throw new Exception("'$name' is not an Array.");
+        }
+        
+        foreach ($value as $item) {
+            if (!is_array($item)) {
+                throw new Exception("Array '$name' contains non-array values.");
+            }
+        }
+        
+        return $value;
+    }
+
+    static function Boolean($name) {
+        $value = self::get($name);
+        if (!$value) return false;
+        
+        if (!is_bool($value) && $value !== '1' && $value !== '0' && $value !== 1 && $value !== 0 && $value !== 'true' && $value !== 'false') {
+            throw new Exception("'$name' is not a Boolean.");
+        }
+        
+        return (bool)$value;
+    }
+
+     static function validateDateFormat($value) {
         // Strict YYYY-mm-dd format validation
         if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $value)) {
             return false;
