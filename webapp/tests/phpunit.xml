@@ -16,6 +16,10 @@
         <testsuite name="request">
             <file>RequestTest.php</file>            
         </testsuite>
+        <testsuite name="simplerrules">
+            <file>SimplerruleTest.php</file>
+            <file>DSTSimplerruleTest.php</file>
+        </testsuite>
     </testsuites>
     <source>
         <include>

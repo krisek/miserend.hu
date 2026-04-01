@@ -28,10 +28,11 @@ class SearchResultsMasses extends Html {
             'rites' => \Request::StringArray('rites'), // Be aware: this is an array with 'should' and 'must_not' keys, e.g. rites[should], rites[must_not]
             'mikordatum' => \Request::Text('mikordatum'),
             'mikortol' => \Request::Text('mikortol'),
-            'lang' => \Request::StringArray('lang') // Be aware: this is an array with 'should' and 'must_not' keys, e.g. lang[should], lang[must_not
+            'lang' => \Request::StringArray('lang'), // Be aware: this is an array with 'should' and 'must_not' keys, e.g. lang[should], lang[must_not]
+            'timezone' => \Request::Text('timezone')
         ];
                 
-        $search->timezone = \Request::Text('timezone');
+        $search->timezone =  $params['timezone'];
 
         // egyhazmegye filter
         if ($params['ehm'] > 0) {
