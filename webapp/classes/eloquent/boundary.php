@@ -12,5 +12,11 @@ class Boundary extends \Illuminate\Database\Eloquent\Model {
         return 'https://www.openstreetmap.org/'.$this->osmtype.'/'.$this->osmid;
     }
     
+    public function churches()
+    {
+        return $this->belongsToMany('Eloquent\Church', 'lookup_boundary_church')
+                ->withTimestamps();
+    }
+    
 }
 

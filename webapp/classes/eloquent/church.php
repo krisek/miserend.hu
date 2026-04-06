@@ -911,32 +911,7 @@ class Church extends \Illuminate\Database\Eloquent\Model {
                 ->withTimestamps();
     }
     
-    function MdownloadOSMBoundaries() {
-        return;
-        $overpass = new \ExternalApi\OverpassApi();
-        $overpass->downloadEnclosingBoundaries($this->lat, $this->lon);
-                
-        //Detach all boundaries but those manually added (without OSM integration);                    
-        $this->boundaries()->where('osmid','>','0')->detach();
-        foreach($overpass->jsonData->elements as $element) {
-            $boundary = \Eloquent\Boundary::firstOrNew(['osmtype' => $element->type, 'osmid' => $element->id]);
-            
-            $changed = false;
-            foreach ( array('boundary','admin_level','name','alt_name','denomination') as $key ) {
-                if(isset($element->tags->$key) AND $element->tags->$key != $boundary->$key ) {
-                    $boundary->$key = $element->tags->$key;
-                    $changed = true;
-                }                
-            }
-            $changed ? $boundary->save() : false;
-
-            $this->boundaries()->attach($boundary->id);               
-        }
-        $this->boundaries()->touch();
-        $this->MmigrateBoundaries();        
-        
-        return;
-    }
+   
     
     
     /* 
