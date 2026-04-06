@@ -477,8 +477,11 @@ class Church extends \Illuminate\Database\Eloquent\Model {
             } else {
                 $return['gorog'] = 'false';
             }
-        }
 
+            // boundaries
+            $return['boundaries'] = $this->boundaries()->pluck('boundary_id')->toArray();    
+        }
+        
         return $return;
     }
 

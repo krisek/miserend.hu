@@ -41,7 +41,7 @@ class OSM {
 
     function checkBoundariesForOne($church) {
         $boundaries = $this->downloadBoundaries($church->lat, $church->lon);
-        if(count($boundaries) < 1) return;            
+        if($boundaries AND count($boundaries) < 1) return;            
         $church->boundaries()->sync($boundaries);
         $church->MmigrateBoundaries();
     }
@@ -64,6 +64,12 @@ class OSM {
             
         }
         
+        if(in_array($overpass->responseCode, [502, 503, 504])) {
+            //Az OSM API túlterhelt, ezért nem tudunk adatot lekérni. Ez nem a mi hibánk. Később újrapróbáljuk
+            //addMessage("Az OSM API jelenleg nem elérhető (HTTP $overpass->responseCode). Kérem próbálja meg később.", 'danger');
+            return;
+        }
+
         if (!$overpass->jsonData->elements) {
             printr($overpass);
             throw new \Exception("Missing Json Elements from OverpassApi Query");
