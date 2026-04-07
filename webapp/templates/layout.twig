@@ -145,7 +145,7 @@
                     {% endif %}    
                 </div>
             </div>
-            {% include 'footer.twig' %}
+            {% block footer %}{% include 'footer.twig' %}{% endblock %}
        {% endblock %}
     
     <script>
