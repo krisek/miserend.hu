@@ -5,8 +5,8 @@
       <div class="container" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px;">
         {% block pageHeader %}
           <div style="display: flex; align-items: center; gap: 10px;">
-            <a href="{{ baseurl }}/" style="text-decoration: none; color: #fff; font-size: 18px;">
-              <span>⛪</span> 
+            <a href="{{ baseurl }}/" title="Vissza a miserend.hu főoldalára" style="text-decoration: none; color: #fff; font-size: 18px;">
+                <img src="/img/logo-icon.png" alt="Miserend oldal" loading="lazy" class="logo-icon"/>
             </a>
             {% if title %}<h3 style="margin: 0; white-space: nowrap; color: #fff;">{{ title|raw }}</h3>{% endif %}
           </div>

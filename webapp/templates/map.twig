@@ -6,22 +6,13 @@
                     position: relative;
                     width: 100%;
                     height: calc(100vh - 50px); /* A menusav magassága */
+                    margin-bottom: 20px;
                 }
                 #menusav {
                     margin-bottom: 0 ;
                 }
             </style>
-            <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    const header = document.querySelector('#header');
-                    const menusav = document.querySelector('#menusav');
-                    const mapid = document.querySelector('#mapid');
-                    const headerHeight = header.offsetHeight;
-                    const menusavHeight = menusav.offsetHeight;
-
-                    mapid.style.height = `calc(100vh - ${headerHeight}px - ${menusavHeight}px )`;
-                });
-            </script>
+          
             {% include '_map_leaflet.twig' %}           
         {% endblock %}        
     
